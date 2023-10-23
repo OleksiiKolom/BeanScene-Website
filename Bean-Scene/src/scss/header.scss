@@ -1,0 +1,261 @@
+// ===================================================================================
+
+// ___Стилі для header___
+
+.header {
+	position: fixed;
+	z-index: 50;
+	width: 100%;
+	padding: 20px 0px;
+	color: var(--text-secondary);
+	transition: all 0.3s ease;
+
+	&.scroll {
+		padding: 12px 0px;
+		background-color: rgba(0, 0, 0, 0.85);
+	}
+
+	@media (max-width: $mobile) {
+		padding: 12px 0px;
+	}
+
+	&__container {
+		display: flex;
+		align-items: center;
+
+		@media (min-width: $mobile) {
+			justify-content: space-between;
+			column-gap: 20px;
+		}
+
+		@media (max-width: $mobile) {
+			column-gap: 15px;
+		}
+	}
+
+	&__name-company {
+		font-family: 'Clicker Script';
+		font-size: toRem(35);
+		position: relative;
+		z-index: 20;
+
+		@media (min-width: $tablet) {
+			transition: all 0.3s ease;
+
+			&:hover {
+				color: var(--bg-accent);
+			}
+		}
+
+		@media (max-width: $mobileSmall) {
+			font-size: toRem(28);
+		}
+
+		@media (max-width: em(375)) {
+			flex: 0 52px;
+		}
+	}
+
+	&__navigaion {
+		@media (max-width: $mobile) {
+			flex: 1 1 auto;
+		}
+	}
+
+	&__login {}
+
+	&__signin {
+		text-decoration: underline;
+		margin-right: 35px;
+
+		@media (min-width: $tablet) {
+			transition: all 0.3s ease;
+
+			&:hover {
+				color: var(--bg-accent);
+				transform: scale(1.1);
+			}
+		}
+
+		@media (max-width: $mobile) {
+			margin-right: 10px;
+		}
+	}
+
+	&__signin,
+	&__signup {
+		font-weight: 500;
+		font-size: toRem(14);
+		position: relative;
+		z-index: 20;
+	}
+
+	&__signup {
+		min-width: 100px;
+		border-radius: borderRadius(100, 48, 24);
+	}
+
+	&__burger {
+		display: none;
+	}
+}
+
+.navigation {
+
+	&__list {
+		display: flex;
+
+		@media (min-width: $mobileSmall) {
+			column-gap: 60px;
+		}
+
+		@media (max-width: $tablet) {
+			column-gap: 40px;
+		}
+
+		@media (max-width: $mobile) {
+			position: fixed;
+			z-index: 10;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: -100%;
+			padding: 100px 15px 60px 15px;
+
+			flex-direction: column;
+			align-items: center;
+			row-gap: 30px;
+			overflow-y: auto;
+
+			background-color: rgba(255, 254, 252, 0.95);
+			transition: all 0.3s ease-in;
+
+			&::before {
+				content: '';
+				position: fixed;
+				z-index: 15;
+				width: 100%;
+				height: 82px;
+				top: 0;
+				left: -100%;
+				background-color: var(--text-accent_1);
+				transition: left 0.3s ease-in;
+			}
+
+			&.active {
+				left: 0;
+
+				&::before {
+					left: 0;
+				}
+			}
+		}
+	}
+
+	&__item {}
+
+	&__link {
+		font-size: toRem(14);
+		font-weight: 500;
+
+		@media (min-width: $tablet) {
+			position: relative;
+			transition: all 0.3s ease;
+
+			&::before {
+				content: '';
+				position: absolute;
+				bottom: -2px;
+				left: 50%;
+				width: 0;
+				height: em(1.3, 14);
+				background-color: var(--bg-accent);
+				border-radius: 2px;
+				transition: all 0.3s ease;
+			}
+
+			&:hover {
+				color: var(--bg-accent);
+
+				&::before {
+					left: 0;
+					width: 100%;
+				}
+			}
+		}
+
+		@media (max-width: $mobile) {
+			font-size: 36px;
+			color: var(--text-accent_1);
+			text-align: center;
+			display: inline-block;
+		}
+	}
+}
+
+// ===================================================================================
+
+// ___burger___ 
+
+.header__burger {
+	$burgerColor: var(--bg-accent);
+	$burgerWidth: 32;
+	$burgerHeight: 20;
+	$burgerHeightLine: 3;
+
+	$burgerMidPoint: $burgerHeightLine + math.div(($burgerHeight - ($burgerHeightLine * 3)), 2);
+
+	@media (max-width: $mobile) {
+		position: relative;
+		z-index: 20;
+		width: $burgerWidth + px;
+		height: $burgerHeight + px;
+		display: block;
+		cursor: pointer;
+
+		span {
+			position: absolute;
+			width: 100%;
+			height: $burgerHeightLine + px;
+			background-color: $burgerColor;
+			border-radius: ($burgerHeightLine / 2) + px;
+			left: 0;
+			transition: 0.25s ease-in-out;
+
+			&:nth-child(1) {
+				top: 0px;
+			}
+
+			&:nth-child(2),
+			&:nth-child(3) {
+				top: $burgerMidPoint + px;
+			}
+
+			&:nth-child(4) {
+				bottom: 0px;
+			}
+		}
+
+		&.active {
+			span {
+
+				&:nth-child(1),
+				&:nth-child(4) {
+					width: 0;
+					left: 50%;
+					top: $burgerMidPoint + px;
+				}
+
+				&:nth-child(2) {
+					transform: rotate(45deg);
+				}
+
+				&:nth-child(3) {
+					transform: rotate(-45deg);
+				}
+			}
+		}
+	}
+}
+
+// ===================================================================================
